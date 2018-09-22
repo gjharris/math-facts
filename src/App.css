@@ -74,12 +74,12 @@
   /* animation: 1.5s 'fadeInOut'; */
 }
 .answer-result.correct {
-  background-color: #3cb759;
-  color: #10471d;
+  border: 1px solid #3cb759;
+  color: #3cb759;
 }
 .answer-result.wrong {
-  background-color: #f7a6a0;
-  color: #6b2521;
+  border: 1px solid #f45942;
+  color: #f45942;
 }
 .top-number {
   grid-column: 1 / span 2;

@@ -100,7 +100,7 @@ class App extends Component {
   
     return array;
   }
-  getWrongAnswer = (problem) => {
+  getWrongAnswer = (problem, correctAnswer) => {
     let max = 161;
     if(problem.operator.name == OPERATOR_NAMES.PLUS) {
       max = 30;
@@ -108,7 +108,11 @@ class App extends Component {
     if(problem.operator.name == OPERATOR_NAMES.MINUS) {
       max = 21;
     }
-    return { value: this.getRandomArbitrary(0, max), correct: false }
+    let ans = this.getRandomArbitrary(0, max);
+    if(ans === correctAnswer.value) {
+      ans++;
+    }
+    return { value: ans, correct: false }
   }
   submitAnswer = (answer) => {
     this.setState({
@@ -149,9 +153,9 @@ class App extends Component {
     }
     
     answers.push(correctAnswer);
-    answers.push(this.getWrongAnswer(problem));
-    answers.push(this.getWrongAnswer(problem));
-    answers.push(this.getWrongAnswer(problem));
+    answers.push(this.getWrongAnswer(problem, correctAnswer));
+    answers.push(this.getWrongAnswer(problem, correctAnswer));
+    answers.push(this.getWrongAnswer(problem, correctAnswer));
     problem.answers = this.shuffleAnswers(answers);
     return problem;
   }
@@ -181,7 +185,6 @@ class App extends Component {
         }
         {
           this.state.mode === MODES.TEST && 
-         
           <div className="wrapper">
           {this.state.lastAnswerCorrect && <div className="answer-result correct">Correct!</div>}
           {this.state.lastAnswerCorrect != null && !this.state.lastAnswerCorrect && <div className="answer-result wrong">Sorry, that is not correct :(</div>}
