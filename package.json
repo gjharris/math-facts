@@ -2,6 +2,7 @@
   "name": "math-facts",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gjharris.github.io/math-facts/",
   "dependencies": {
     "normalize.css": "^8.0.0",
     "react": "^16.5.2",
