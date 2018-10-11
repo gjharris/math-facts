@@ -118,12 +118,16 @@ class App extends Component {
     return { value: ans, correct: false }
   }
   submitAnswer = (answer) => {
-    if(this.state.questionsRemaining > 0) {
+    if(this.state.questionsRemaining > 1) {
       this.setState({
         questionsRemaining: --this.state.questionsRemaining,
         problem: this.buildProblem(),
-        lastAnswerCorrect: answer.correct
+        lastAnswerCorrect: answer.correct,
+        amountCorrect: answer.correct ? ++this.state.amountCorrect : this.state.amountCorrect,
+        amountWrong: !answer.correct ? ++this.state.amountWrong : this.state.amountWrong
       })
+    } else {
+      this.endTest();
     }
     
   }
@@ -137,7 +141,8 @@ class App extends Component {
   endTest = () => {
     this.setState({
       problem: null,
-      mode: MODES.SETUP
+      mode: MODES.SETUP,
+      questionsRemaining: 20,
     })
   }
 
@@ -194,12 +199,12 @@ class App extends Component {
           this.state.mode === MODES.TEST && 
           <div className="wrapper">
           <div className="counter-container">
-            <div className="remaining">{this.state.questionsRemaining}</div>
-            <div className="correct">{this.state.amountCorrect}</div>
-            <div className="wrong">{this.state.amountWrong}</div>
+            <div className="counter remaining">{this.state.questionsRemaining}</div>
+            <div className="counter correct">{this.state.amountCorrect}</div>
+            <div className="counter wrong">{this.state.amountWrong}</div>
           </div>
-          {this.state.lastAnswerCorrect && <div className="answer-result correct">Correct!</div>}
-          {this.state.lastAnswerCorrect != null && !this.state.lastAnswerCorrect && <div className="answer-result wrong">Sorry, that is not correct :(</div>}
+          {/* {this.state.lastAnswerCorrect && <div className="answer-result correct">Correct!</div>}
+          {this.state.lastAnswerCorrect != null && !this.state.lastAnswerCorrect && <div className="answer-result wrong">Sorry, that is not correct :(</div>} */}
             
             <div className="problem-container">
               <div className="top-number">{problem.topNumber}</div>

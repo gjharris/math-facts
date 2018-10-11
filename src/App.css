@@ -1,4 +1,7 @@
 
+BODY {
+  font-family: 'Open Sans', sans-serif;
+}
 .App {
   text-align: center;
   margin-top:50px;
@@ -91,6 +94,25 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
+}
+.counter-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.counter-container .wrong {
+  color: #f45942;
+  font-size: 24px;
+  font-weight: bold;
+}
+.counter-container .correct {
+  color: #3ead58;
+  font-size: 24px;
+  font-weight: bold;
+}
+.counter-container .remaining {
+  color: #666;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 /* ----------------------------------------------
