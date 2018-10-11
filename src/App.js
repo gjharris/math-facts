@@ -11,7 +11,10 @@ class App extends Component {
       selectedNumbers: [],
       mode: MODES.SETUP,
       problem: null,
-      lastAnswerCorrect: null
+      lastAnswerCorrect: null,
+      questionsRemaining: 20,
+      amountCorrect: 0,
+      amountWrong: 0
     }
   }
   operators = [
@@ -115,10 +118,14 @@ class App extends Component {
     return { value: ans, correct: false }
   }
   submitAnswer = (answer) => {
-    this.setState({
-      problem: this.buildProblem(),
-      lastAnswerCorrect: answer.correct
-    })
+    if(this.state.questionsRemaining > 0) {
+      this.setState({
+        questionsRemaining: --this.state.questionsRemaining,
+        problem: this.buildProblem(),
+        lastAnswerCorrect: answer.correct
+      })
+    }
+    
   }
   startTest = () => {
     this.setState({
@@ -186,6 +193,11 @@ class App extends Component {
         {
           this.state.mode === MODES.TEST && 
           <div className="wrapper">
+          <div className="counter-container">
+            <div className="remaining">{this.state.questionsRemaining}</div>
+            <div className="correct">{this.state.amountCorrect}</div>
+            <div className="wrong">{this.state.amountWrong}</div>
+          </div>
           {this.state.lastAnswerCorrect && <div className="answer-result correct">Correct!</div>}
           {this.state.lastAnswerCorrect != null && !this.state.lastAnswerCorrect && <div className="answer-result wrong">Sorry, that is not correct :(</div>}
             
